@@ -1,9 +1,16 @@
+import numpy
+
 
 class Process:
+
+    average_wait_RR: list = []
+    switches_RR: int = 0
+    count_RR = 0
 
     def __init__(self, name, arrival, duration):
         # PID
         self.name: int = name
+        Process.count_RR += 1
         ###
         # each process has its own arrival and duration time
         self.arrival_time: int = arrival
@@ -46,3 +53,21 @@ class Process:
 
     def get_waiting(self):
         return self.waiting_list
+
+    @classmethod
+    # for RR
+    def get_avg_rr(cls):
+        sums = 0
+        for times in Process.average_wait_RR:
+            sums += times
+        return round(sums / Process.count_RR, 3)
+
+    @classmethod
+    # for RR
+    def get_switches_rr(cls):
+        return Process.switches_RR
+
+    @classmethod
+    # for RR
+    def get_std_rr(cls):
+        return numpy.around(numpy.std(Process.average_wait_RR, ddof=1), 3)
