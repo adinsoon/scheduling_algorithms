@@ -25,7 +25,7 @@ def round_robin_algorithm(list_of_processes, quantum):
                     process.execution_time = elapsed_time
                     process.started = True
 
-                else:
+                if process.started:
                     # if the process does not complete after handling
                     if process.duration_time_copy > quantum:
                         process_start = elapsed_time
@@ -41,34 +41,37 @@ def round_robin_algorithm(list_of_processes, quantum):
                         interval = process.duration_time_copy
                         elapsed_time += interval
                         process.termination_time = elapsed_time
-                        process.end = elapsed_time
+                        process_end = elapsed_time
                         process.duration_time_copy = 0
                         process.finished = True
                         time = [process_start, process_end]
                         process.working_list.append(time)
-            else:
-                # calculate total waiting time for this process
-                process.waiting_time = process.termination_time - \
-                                       process.duration_time - \
-                                       process.arrival_time
+
+                if process.finished:
+                    # calculate total waiting time for this process
+                    process.waiting_time = process.termination_time - \
+                                           process.duration_time - \
+                                           process.arrival_time
 
             # for the rest of processes that are waiting
             for rest in list_of_processes:
-                # if the process arrived and is waiting
-                if elapsed_time >= rest.arrival_time:
-                    # and is not finished yet
-                    if not rest.finished:
-                        if process_start < rest.arrival_time:
-                            time = [rest.arrival_time, process_end]
-                        else:
-                            time = [process_start, process_end]
-                        if time in rest.waiting_list:
-                            break
-                        if process_start + interval < elapsed_time or \
-                                process_end < elapsed_time:
-                            break
-                        else:
-                            rest.waiting_list.append(time)
+                if process != rest:
+                    # if the process arrived and is waiting
+                    if elapsed_time >= rest.arrival_time:
+                        # and is not finished yet
+                        if not rest.finished:
+                            # if process not arrived yet
+                            if process_start < rest.arrival_time:
+                                time = [rest.arrival_time, process_end]
+                            else:
+                                time = [process_start, process_end]
+                            if time in rest.waiting_list:
+                                break
+                            if process_start + interval < elapsed_time or \
+                                    process_end < elapsed_time:
+                                break
+                            else:
+                                rest.waiting_list.append(time)
 
             iteration += 1
 

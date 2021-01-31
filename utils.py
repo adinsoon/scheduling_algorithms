@@ -1,5 +1,6 @@
 import operator
 import os
+import math
 from process import Process
 
 dest = os.path.dirname(__file__)
@@ -18,7 +19,7 @@ def prepare_processes_list(list_of_processes):
 
 def save_processes(reason, source_list, timestamp):
     # every file will be saved to given dir
-    target = dest+"/"+timestamp
+    target = dest + "/" + timestamp
     os.makedirs(target, exist_ok=True)
 
     # every file has its own prefix
@@ -51,3 +52,6 @@ def save_calls():
 def save_pages():
     pass
 
+
+def roundup(x):
+    return int(math.ceil(x / 10.0)) * 10 + 10
