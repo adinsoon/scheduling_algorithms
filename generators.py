@@ -2,8 +2,8 @@ from process import Process
 from random import randrange
 
 
-def generate_processes(process_range, arrival_range, duration_range,
-                       target_list):
+def generate_processes(process_range, arrival_range, duration_range):
+    target_list = []
     """
     :param process_range: how much process to generate
     :param arrival_range: specify the range of arrivals

@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 from utils import roundup
 import random
 import math
-from config import RR_PROCESS_RANGE, RR_ARRIVAL_RANGE, RR_DURATION_RANGE, \
-    RR_QUANTUM
+from config import RR_PROCESS_RANGE, RR_QUANTUM
 
 
 def rr_plot(list_of_processes, timestamp):
@@ -71,3 +70,7 @@ def rr_plot(list_of_processes, timestamp):
     title = "CHART_RR_" + timestamp + ".png"
     sub = timestamp + "/"
     plt.savefig(sub + title)
+
+
+def fcfs_plot(list_of_processes, timestamp):
+    pass
