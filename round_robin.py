@@ -80,6 +80,7 @@ def round_robin_algorithm(list_of_processes, quantum):
             break
 
     for process in list_of_processes:
+        Process.count_RR += 1
         Process.average_wait_RR.append(process.waiting_time)
     Process.switches_RR = iteration
 

@@ -5,12 +5,13 @@ class Process:
 
     average_wait_RR: list = []
     switches_RR: int = 0
-    count_RR = 0
+    count_RR: int = 0
+    count_FCFS: int = 0
+    average_wait_FCFS: list = []
 
     def __init__(self, name, arrival, duration):
         # PID
         self.name: int = name
-        Process.count_RR += 1
         ###
         # each process has its own arrival and duration time
         self.arrival_time: int = arrival

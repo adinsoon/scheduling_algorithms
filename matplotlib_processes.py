@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from utils import roundup
 import random
 import math
-from config import RR_PROCESS_RANGE, RR_QUANTUM
+from config import config as cfg
 
 
 def rr_plot(list_of_processes, timestamp):
@@ -10,7 +10,7 @@ def rr_plot(list_of_processes, timestamp):
     for process in list_of_processes:
         width_xaxis.append(process.termination_time)
     width_value = max(width_xaxis)
-    height_value = RR_PROCESS_RANGE * 5 + 5
+    height_value = cfg["RR"]["RR_PROCESS_RANGE"] * 5 + 5
 
     WIDTH = math.ceil((width_value + 150) / 50)
     HEIGHT = math.ceil((height_value + 100) / 50)
@@ -18,8 +18,8 @@ def rr_plot(list_of_processes, timestamp):
 
     fig, gnt = plt.subplots(figsize=(WIDTH, HEIGHT))
 
-    plt.title(f'GANNT PLOT FOR {RR_PROCESS_RANGE} PROCESSES, RR, '
-              f'QUANTUM {RR_QUANTUM} [MS]')
+    plt.title(f'GANNT PLOT FOR {cfg["RR"]["RR_PROCESS_RANGE"]} PROCESSES, RR, '
+              f'QUANTUM {cfg["RR"]["RR_QUANTUM"]} [MS]')
 
     gnt.set_ylim(0, height_value)
     gnt.set_xlim(0, roundup(width_value + 15))
@@ -27,7 +27,8 @@ def rr_plot(list_of_processes, timestamp):
     gnt.set_xlabel('Time[ms]')
     gnt.set_ylabel('Process')
 
-    gnt.set_yticks([i for i in range(5, RR_PROCESS_RANGE * 5 + 5, 5)])
+    gnt.set_yticks([i for i in range(5, cfg["RR"]["RR_PROCESS_RANGE"] * 5 +
+                                     5, 5)])
     gnt.invert_yaxis()
 
     gnt.grid(True)
