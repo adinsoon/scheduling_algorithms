@@ -53,6 +53,7 @@ def case_fcfs(timestamp):
         save_processes(reason_sorted, list_of_processes_FCFS, timestamp)
     else:
         list_of_processes_FCFS = deepcopy(list_of_processes)
+        list_of_processes_FCFS = prepare_processes_list(list_of_processes_FCFS)
 
     # execute the algorithm
     fcfs_result = fcfs(list_of_processes_FCFS)
@@ -61,4 +62,4 @@ def case_fcfs(timestamp):
     save_processes('FCFS_DONE', fcfs_result, timestamp)
 
     # make a plot
-    # fcfs_plot(fcfs_result, timestamp)
+    fcfs_plot(fcfs_result, timestamp)

@@ -11,6 +11,6 @@ timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
 if __name__ == '__main__':
     check_config(cfg)
     case_rr(timestamp)
-    # case_fcfs()
+    case_fcfs(timestamp)
     # case_fifo()
     # case_lru()
