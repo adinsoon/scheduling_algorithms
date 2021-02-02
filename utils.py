@@ -53,7 +53,9 @@ def save_processes(reason, source_list, timestamp):
         file.write(f'Average waiting time: {Process.get_avg_rr()} \t')
         file.write(f'Std: {Process.get_std_rr()} \n')
         file.write(f'Switches: {Process.get_switches_rr()}')
-
+    if reason == 'FCFS_DONE':
+        file.write(f'Average wait time: {Process.get_avg_fcfs()} \t')
+        file.write(f'Std: {Process.get_std_fcfs()} \n')
     file.close()
 
 

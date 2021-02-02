@@ -72,3 +72,16 @@ class Process:
     # for RR
     def get_std_rr(cls):
         return numpy.around(numpy.std(Process.average_wait_RR, ddof=1), 3)
+
+    @classmethod
+    # for FCFS
+    def get_avg_fcfs(cls):
+        sums = 0
+        for items in Process.average_wait_FCFS:
+            sums += items
+        return round(sums / Process.count_FCFS, 3)
+
+    @classmethod
+    # for FCFS
+    def get_std_fcfs(cls):
+        return numpy.around(numpy.std(Process.average_wait_FCFS, ddof=1), 3)
