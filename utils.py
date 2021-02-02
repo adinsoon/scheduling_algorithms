@@ -6,6 +6,18 @@ from process import Process
 dest = os.path.dirname(__file__)
 
 
+def check_config(config):
+    for key, value in config.items():
+        if type(value) is dict:
+            check_config(value)
+        else:
+            if value < 0:
+                raise ValueError(f"An error occurred while validating config.\n"
+                                 f"The variable that raised the error: "
+                                 f"{key}.\nPlease make sure that all "
+                                 f"variables are not lesser than zero.")
+
+
 def prepare_processes_list(list_of_processes):
     """
     :param list_of_processes:
