@@ -12,9 +12,9 @@ list_of_processes: list = []
 def case_rr(timestamp):
     # generate list of processes
     global list_of_processes
-    list_of_processes = generate_processes(cfg["RR"]["RR_PROCESS_RANGE"],
-                                           cfg["RR"]["RR_ARRIVAL_RANGE"],
-                                           cfg["RR"]["RR_DURATION_RANGE"])
+    list_of_processes = generate_processes(cfg["RR"]["PROCESS_RANGE"],
+                                           cfg["RR"]["ARRIVAL_RANGE"],
+                                           cfg["RR"]["DURATION_RANGE"])
     # save to file
     reason_generated = 'RR_GENERATED'
     reason_sorted = 'RR_SORTED'
@@ -29,7 +29,7 @@ def case_rr(timestamp):
     save_processes(reason_sorted, list_of_processes_RR, timestamp)
 
     # execute the algorithm
-    round_robin_result = rr(list_of_processes_RR, cfg["RR"]["RR_QUANTUM"])
+    round_robin_result = rr(list_of_processes_RR, cfg["RR"]["QUANTUM"])
 
     # save results
     save_processes('RR_DONE', round_robin_result, timestamp)
@@ -41,9 +41,9 @@ def case_rr(timestamp):
 def case_fcfs(timestamp):
     if not cfg["SUB"]["USE_RR_TO_FCFS"]:
         fcfs_list_of_processes = generate_processes(
-            cfg["FCFS"]["FCFS_PROCESS_RANGE"],
-            cfg["FCFS"]["FCFS_ARRIVAL_RANGE"],
-            cfg["FCFS"]["FCFS_DURATION_RANGE"])
+            cfg["FCFS"]["PROCESS_RANGE"],
+            cfg["FCFS"]["ARRIVAL_RANGE"],
+            cfg["FCFS"]["DURATION_RANGE"])
         reason_generated = 'FCFS_GENERATED'
         reason_sorted = 'FCFS_SORTED'
         # before sorting, raw generated
