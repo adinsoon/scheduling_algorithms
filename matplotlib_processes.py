@@ -10,7 +10,7 @@ def rr_plot(list_of_processes, timestamp):
     for process in list_of_processes:
         width_xaxis.append(process.termination_time)
     width_value = max(width_xaxis)
-    height_value = cfg["RR"]["RR_PROCESS_RANGE"] * 5 + 5
+    height_value = cfg["RR"]["PROCESS_RANGE"] * 5 + 5
 
     WIDTH = math.ceil((width_value + 150) / 50)
     HEIGHT = math.ceil((height_value + 150) / 50)
@@ -18,8 +18,8 @@ def rr_plot(list_of_processes, timestamp):
 
     fig, gnt = plt.subplots(figsize=(WIDTH, HEIGHT))
 
-    plt.title(f'GANNT PLOT FOR {cfg["RR"]["RR_PROCESS_RANGE"]} PROCESSES, RR, '
-              f'QUANTUM {cfg["RR"]["RR_QUANTUM"]} [MS]')
+    plt.title(f'GANNT PLOT FOR {cfg["RR"]["PROCESS_RANGE"]} PROCESSES, RR, '
+              f'QUANTUM {cfg["RR"]["QUANTUM"]} [MS]')
 
     gnt.set_ylim(0, height_value)
     gnt.set_xlim(0, roundup(width_value + 15))
@@ -27,7 +27,7 @@ def rr_plot(list_of_processes, timestamp):
     gnt.set_xlabel('Time[ms]')
     gnt.set_ylabel('Process')
 
-    gnt.set_yticks([i for i in range(5, cfg["RR"]["RR_PROCESS_RANGE"] * 5 +
+    gnt.set_yticks([i for i in range(5, cfg["RR"]["PROCESS_RANGE"] * 5 +
                                      5, 5)])
     gnt.invert_yaxis()
 
@@ -68,7 +68,7 @@ def rr_plot(list_of_processes, timestamp):
             handout.append(h)
     gnt.legend(handout, lablout, prop={'size': 6})
 
-    title = "CHART_RR_" + timestamp + ".png"
+    title = "RR_CHART_" + timestamp + ".png"
     sub = timestamp + "/"
     plt.savefig(sub + title)
 
@@ -88,9 +88,9 @@ def fcfs_plot(list_of_processes, timestamp):
     HEIGHT = math.ceil((len(list_of_processes)*16)/100)
     fig, gnt = plt.subplots(figsize=(WIDTH, max(HEIGHT, 4)))
 
-    processes = cfg["FCFS"]["FCFS_PROCESS_RANGE"]
+    processes = cfg["FCFS"]["PROCESS_RANGE"]
     if cfg["SUB"]["USE_RR_TO_FCFS"]:
-        processes = cfg["RR"]["RR_PROCESS_RANGE"]
+        processes = cfg["RR"]["PROCESS_RANGE"]
 
     plt.title(f'GANNT PLOT FOR {processes} PROCESSES, FCFS')
 
@@ -144,6 +144,6 @@ def fcfs_plot(list_of_processes, timestamp):
     gnt.legend(handout, lablout, prop={'size': 7-int(processes/20)},
                bbox_to_anchor=(1.07, 1))
 
-    title = "CHART_FCFS_" + timestamp + ".png"
+    title = "FCFS_CHART_" + timestamp + ".png"
     sub = timestamp + "/"
     plt.savefig(sub + title)
