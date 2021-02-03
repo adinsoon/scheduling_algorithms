@@ -41,6 +41,6 @@ class Frame:
 
     @classmethod
     # for LRU
-    def get_percent_fault_fifo(cls):
+    def get_percent_fault_lru(cls):
         faults = sum(occur == "FAULT" for occur in Frame.logs_LRU.values())
         return round(faults / len(Frame.logs_LRU), 3)
