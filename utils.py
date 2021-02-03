@@ -2,6 +2,7 @@ import operator
 import os
 import math
 from process import Process
+from frame import Frame
 
 dest = os.path.dirname(__file__)
 
@@ -59,12 +60,58 @@ def save_processes(reason, source_list, timestamp):
     file.close()
 
 
-def save_calls():
-    pass
+def save_calls(reason, calls, timestamp):
+    # every file will be saved to the given dir
+    target = dest+"/"+timestamp
+    os.makedirs(target, exist_ok=True)
+
+    # every file has its own prefix
+    prefix = f'{reason}_'
+    title = prefix + timestamp + ".txt"
+
+    file = open(os.path.join(target, title), "w")
+    SPACES = 5
+    space = " " * SPACES
+    file.write("CALLS: " + space)
+    for call in calls:
+        file.write(str(call) + space)
+    file.write('\n')
+    file.close()
 
 
-def save_pages():
-    pass
+def save_pages(reason, calls, list_of_frames, timestamp):
+    # every file will be saved to the given dir
+    target = dest + "/" + timestamp
+    os.makedirs(target, exist_ok=True)
+
+    # every file has its own prefix
+    prefix = f'{reason}_'
+    title = prefix + timestamp + ".txt"
+
+    file = open(os.path.join(target, title), "w")
+    desc = ["MOMENT \t\t", "CALL \t"]
+    file.write(desc[0])
+    for i in range(len(calls)):
+        file.write(f'{i} \t')
+    file.write('\n'+desc[1]+'\t')
+    for call in calls:
+        file.write(f'{call} \t')
+    file.write('\n')
+    for frame in list_of_frames:
+        file.write(f'{str(frame)} \t\t')
+        for data in frame.get_results():
+            file.write(f'{data} \t')
+        file.write('\n')
+    file.write('\n\n')
+    # FIFO
+    if reason == 'FIFO_DONE':
+        file.write(f'% HIT: {Frame.get_percent_hit_fifo()}% \t')
+        file.write(f'% FAULT: {Frame.get_percent_fault_fifo()}% \n')
+    elif reason == 'LRU_DONE':
+        file.write(f'% HIT: {Frame.get_percent_hit_lru()}% \t')
+        file.write(f'% FAULT: {Frame.get_percent_fault_lru()}% \n')
+    file.write('\n')
+    file.close()
 
 
 def roundup(x):

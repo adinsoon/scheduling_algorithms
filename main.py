@@ -12,5 +12,5 @@ if __name__ == '__main__':
     check_config(cfg)
     case_rr(timestamp)
     case_fcfs(timestamp)
-    # case_fifo()
+    case_fifo(timestamp)
     # case_lru()
