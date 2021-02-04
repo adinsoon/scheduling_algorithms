@@ -19,6 +19,7 @@ def fifo_algorithm(list_of_calls, list_of_frames):
                     frame.value = call
                     frame.values[f'{moment}'] = call
                     Frame.logs_FIFO[f'{moment}'] = 'FAULT'
+                    frame.log.append(moment)
                     # reload of value
                     frame.reload = moment
                     done = True
@@ -32,7 +33,7 @@ def fifo_algorithm(list_of_calls, list_of_frames):
                 # list of reload times of each frame
                 span = []
                 # if all frames are taken
-                if not any(frame.taken for frame in list_of_frames):
+                if all(frame.taken for frame in list_of_frames):
                     # if this value is nowhere found
                     if not any(frame.value == call for frame in list_of_frames):
                         # find oldest reload time
@@ -45,13 +46,12 @@ def fifo_algorithm(list_of_calls, list_of_frames):
                                 found.value = call
                                 found.values[f'{moment}'] = call
                                 Frame.logs_FIFO[f'{moment}'] = 'FAULT'
+                                found.log.append(moment)
                                 found.reload = moment
                                 done = True
             if done:
                 for rest in list_of_frames:
-                    if len(rest.values) < len(frame.values) and len(
-                            rest.values) <= len(list_of_calls):
-                        rest.values[f'{moment}'] = rest.value
+                    rest.values[f'{moment}'] = rest.value
                 break
 
     return list_of_frames

@@ -13,6 +13,8 @@ class Frame:
         self.value: int = 0
         # dict of previous values
         self.values: dict = {}
+        # list of the individual frame
+        self.log: list = []
         self.taken: bool = False
 
     def __str__(self):

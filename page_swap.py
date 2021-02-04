@@ -19,7 +19,7 @@ def case_fifo(timestamp):
     if cfg["SUB"]["USE_FIFO_TO_LRU"]:
         reason = "FIFO_&_LRU_CALLS"
     # save generated calls
-    save_calls(reason, list_of_frames, timestamp)
+    save_calls(reason, list_of_calls, timestamp)
 
     # execute the algorithm
     fifo_result = fifo(list_of_calls, list_of_frames)
@@ -27,8 +27,8 @@ def case_fifo(timestamp):
     # save results
     save_pages('FIFO_DONE', list_of_calls, fifo_result, timestamp)
 
-    # # make a plot
-    # frames_plot()
+    # make a plot
+    frames_plot('FIFO', list_of_calls, fifo_result, timestamp)
 
 
 def case_lru():
