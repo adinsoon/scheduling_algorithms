@@ -1,6 +1,7 @@
 
 class Frame:
 
+    # used to log faults in given moment of algorithm
     logs_FIFO: dict = {}
     logs_LRU: dict = {}
 

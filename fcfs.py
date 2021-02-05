@@ -31,6 +31,7 @@ def fcfs_algorithm(list_of_processes):
                     rest.waiting_list = time
 
     for process in list_of_processes:
+        # count processes and their average waiting time
         Process.count_FCFS += 1
         Process.average_wait_FCFS.append(process.waiting_time)
 

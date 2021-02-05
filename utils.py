@@ -8,6 +8,7 @@ dest = os.path.dirname(__file__)
 
 
 def check_config(config):
+    # in the config file, no parameter can be lesser than zero
     for key, value in config.items():
         if type(value) is dict:
             check_config(value)
@@ -50,13 +51,17 @@ def save_processes(reason, source_list, timestamp):
         file.write(process.get_completed_times())
     file.write('\n')
     file.write('\n')
+
+    # RR
     if reason == 'RR_DONE':
         file.write(f'Average waiting time: {Process.get_avg_rr()} \t')
         file.write(f'Std: {Process.get_std_rr()} \n')
         file.write(f'Switches: {Process.get_switches_rr()}')
+    # FCFS
     if reason == 'FCFS_DONE':
         file.write(f'Average wait time: {Process.get_avg_fcfs()} \t')
         file.write(f'Std: {Process.get_std_fcfs()} \n')
+
     file.close()
 
 
@@ -103,16 +108,20 @@ def save_pages(reason, calls, list_of_frames, timestamp):
             file.write(f'{data} \t')
         file.write('\n')
     file.write('\n\n')
+
     # FIFO
     if reason == 'FIFO_DONE':
         file.write(f'% HIT: {Frame.get_percent_hit_fifo()}% \t')
         file.write(f'% FAULT: {Frame.get_percent_fault_fifo()}% \n')
+    # LRU
     elif reason == 'LRU_DONE':
         file.write(f'% HIT: {Frame.get_percent_hit_lru()}% \t')
         file.write(f'% FAULT: {Frame.get_percent_fault_lru()}% \n')
+
     file.write('\n')
     file.close()
 
 
 def roundup(x):
+    # to avoid floats and 'unequal' values (e.g. 42)
     return int(math.ceil(x / 10.0)) * 10 + 10

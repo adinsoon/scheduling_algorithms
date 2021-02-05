@@ -1,5 +1,19 @@
 # config file for algorithms
+# please make sure that all variables are not lesser than zero
+# please take into account that large values will slow down the plotting process
 config = {
+    "EXE": {
+        # decision parameters - working like a switch
+        # one can decide what want to run
+        "RR": 1,
+        "FCFS": 1,
+        "FIFO": 1,
+        "LRU": 1,
+        # whether save txt files
+        "TXT": 0,
+        # whether save graphs
+        "GRAPHS": 1,
+    },
     "SUB": {
         # use same params for RR and FCFS
         "USE_RR_TO_FCFS": 1,

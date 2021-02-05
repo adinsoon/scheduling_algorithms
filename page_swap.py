@@ -21,16 +21,19 @@ def case_fifo(timestamp):
     if cfg["SUB"]["USE_FIFO_TO_LRU"]:
         reason = "FIFO_&_LRU_CALLS"
     # save generated calls
-    save_calls(reason, list_of_calls, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_calls(reason, list_of_calls, timestamp)
 
     # execute the algorithm
     fifo_result = fifo(list_of_calls, list_of_frames)
 
     # save results
-    save_pages('FIFO_DONE', list_of_calls, fifo_result, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_pages('FIFO_DONE', list_of_calls, fifo_result, timestamp)
 
     # make a plot
-    frames_plot('FIFO', list_of_calls, fifo_result, timestamp)
+    if cfg["EXE"]["GRAPHS"]:
+        frames_plot('FIFO', list_of_calls, fifo_result, timestamp)
 
 
 def case_lru(timestamp):
@@ -40,7 +43,9 @@ def case_lru(timestamp):
                                            cfg["LRU"]["CALLS_VALUE_RANGE"])
         list_of_frames_lru = generate_frames(cfg['LRU']['FRAMES_RANGE'])
         reason = 'LRU_CALLS'
-        save_calls(reason, list_of_calls_lru, timestamp)
+        # save generated calls
+        if cfg["EXE"]["TXT"]:
+            save_calls(reason, list_of_calls_lru, timestamp)
     else:
         # copy previous generated
         list_of_calls_lru = deepcopy(list_of_calls)
@@ -50,7 +55,9 @@ def case_lru(timestamp):
     lru_results = lru(list_of_calls_lru, list_of_frames_lru)
 
     # save results
-    save_pages('LRU_DONE', list_of_calls_lru, lru_results, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_pages('LRU_DONE', list_of_calls_lru, lru_results, timestamp)
 
     # make a plot
-    frames_plot('LRU', list_of_calls_lru, lru_results, timestamp)
+    if cfg["EXE"]["GRAPHS"]:
+        frames_plot('LRU', list_of_calls_lru, lru_results, timestamp)

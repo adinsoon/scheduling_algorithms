@@ -23,19 +23,23 @@ def case_rr(timestamp):
         reason_sorted = 'RR_&_FCFS_SORTED'
 
     # before sorting, raw generated
-    save_processes(reason_generated, list_of_processes, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_processes(reason_generated, list_of_processes, timestamp)
     # after sorting by arrival_time
     list_of_processes_RR = prepare_processes_list(list_of_processes)
-    save_processes(reason_sorted, list_of_processes_RR, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_processes(reason_sorted, list_of_processes_RR, timestamp)
 
     # execute the algorithm
     round_robin_result = rr(list_of_processes_RR, cfg["RR"]["QUANTUM"])
 
     # save results
-    save_processes('RR_DONE', round_robin_result, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_processes('RR_DONE', round_robin_result, timestamp)
 
     # make a plot
-    rr_plot(round_robin_result, timestamp)
+    if cfg["EXE"]["GRAPHS"]:
+        rr_plot(round_robin_result, timestamp)
 
 
 def case_fcfs(timestamp):
@@ -47,11 +51,14 @@ def case_fcfs(timestamp):
         reason_generated = 'FCFS_GENERATED'
         reason_sorted = 'FCFS_SORTED'
         # before sorting, raw generated
-        save_processes(reason_generated, fcfs_list_of_processes, timestamp)
+        if cfg["EXE"]["TXT"]:
+            save_processes(reason_generated, fcfs_list_of_processes, timestamp)
         # after sorting by arrival_time
         list_of_processes_FCFS = prepare_processes_list(fcfs_list_of_processes)
-        save_processes(reason_sorted, list_of_processes_FCFS, timestamp)
+        if cfg["EXE"]["TXT"]:
+            save_processes(reason_sorted, list_of_processes_FCFS, timestamp)
     else:
+        # copy previous generated
         list_of_processes_FCFS = deepcopy(list_of_processes)
         list_of_processes_FCFS = prepare_processes_list(list_of_processes_FCFS)
 
@@ -59,7 +66,9 @@ def case_fcfs(timestamp):
     fcfs_result = fcfs(list_of_processes_FCFS)
 
     # save results
-    save_processes('FCFS_DONE', fcfs_result, timestamp)
+    if cfg["EXE"]["TXT"]:
+        save_processes('FCFS_DONE', fcfs_result, timestamp)
 
     # make a plot
-    fcfs_plot(fcfs_result, timestamp)
+    if cfg["EXE"]["GRAPHS"]:
+        fcfs_plot(fcfs_result, timestamp)

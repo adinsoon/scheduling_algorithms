@@ -65,10 +65,11 @@ def round_robin_algorithm(list_of_processes, quantum):
                                 time = [rest.arrival_time, process_end]
                             else:
                                 time = [process_start, process_end]
-                            if time in rest.waiting_list:
-                                break
-                            if process_start + interval < elapsed_time or \
-                                    process_end < elapsed_time:
+                            # if repetition
+                            if (time in rest.waiting_list) \
+                                    or (process_start + interval <
+                                        elapsed_time) or \
+                                    (process_end < elapsed_time):
                                 break
                             else:
                                 rest.waiting_list.append(time)
@@ -80,6 +81,7 @@ def round_robin_algorithm(list_of_processes, quantum):
             break
 
     for process in list_of_processes:
+        # count processes and their average waiting time
         Process.count_RR += 1
         Process.average_wait_RR.append(process.waiting_time)
     Process.switches_RR = iteration

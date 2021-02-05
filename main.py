@@ -10,7 +10,11 @@ timestamp = time.strftime("%Y-%m-%d_%H-%M-%S")
 
 if __name__ == '__main__':
     check_config(cfg)
-    case_rr(timestamp)
-    case_fcfs(timestamp)
-    case_fifo(timestamp)
-    case_lru(timestamp)
+    if cfg["EXE"]["RR"]:
+        case_rr(timestamp)
+    if cfg["EXE"]["FCFS"]:
+        case_fcfs(timestamp)
+    if cfg["EXE"]["FIFO"]:
+        case_fifo(timestamp)
+    if cfg["EXE"]["LRU"]:
+        case_lru(timestamp)
