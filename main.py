@@ -13,4 +13,4 @@ if __name__ == '__main__':
     case_rr(timestamp)
     case_fcfs(timestamp)
     case_fifo(timestamp)
-    # case_lru()
+    case_lru(timestamp)

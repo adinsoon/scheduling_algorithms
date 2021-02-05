@@ -13,8 +13,8 @@ def frames_plot(mode, list_of_calls, list_of_frames, timestamp):
     WIDTH = cfg[mode]["CALLS_RANGE"]/6 + 4
     HEIGHT = cfg[mode]["FRAMES_RANGE"]/3
     fig, gnt = plt.subplots(figsize=(WIDTH, HEIGHT))
-    adder = cfg[mode]["FRAMES_RANGE"]/100
-    y_value = 0.8+adder
+    adder = cfg[mode]["FRAMES_RANGE"]*cfg[mode]["CALLS_RANGE"]/100
+    y_value = 0.85+adder
     plt.suptitle(title_text, y=min(y_value, 0.95), size=8)
 
     data = [list_of_calls]
