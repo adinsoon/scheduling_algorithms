@@ -1,7 +1,18 @@
 from frame import Frame
 
 
-def fifo_algorithm(list_of_calls, list_of_frames):
+def lru_algorithm(list_of_calls, list_of_frames):
+    # well, lru algorithm is almost identical to the fifo_algorithm
+    # but this time, reload is made also if the call meet value equal to itself
+    # technically, it is possible to merge both algorithms into one function and
+    # through one additional parameter choose whether the additional part below
+    # > frame.log.append(moment)
+    # > frame.reload = moment
+    # in elif frame.value == call should be executed or not
+    # as it is the only difference between fifo and lru
+    # so at least according to the D-R-Y, there will be only one function
+    # for drawing tables as it is the same story as with algorithms
+
     # to start from zero in loop
     moment = -1
 
@@ -27,6 +38,10 @@ def fifo_algorithm(list_of_calls, list_of_frames):
             elif frame.value == call:
                 frame.values[f'{moment}'] = call
                 Frame.logs_FIFO[f'{moment}'] = 'HIT'
+                # # # # # # mentioned part
+                frame.log.append(moment)
+                frame.reload = moment
+                # # # # # #
                 done = True
             # if call meet value different from itself
             else:
